@@ -1,0 +1,61 @@
+services:
+  caddy:
+    image: caddy:2.8-alpine
+    container_name: yumeiho-caddy
+    restart: unless-stopped
+    env_file:
+      - .env.pi
+    depends_on:
+      frontend:
+        condition: service_healthy
+      backend:
+        condition: service_healthy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend.Dockerfile
+    container_name: yumeiho-frontend
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1/ || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    expose:
+      - "80"
+    depends_on:
+      backend:
+        condition: service_healthy
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend.Dockerfile
+    container_name: yumeiho-backend
+    restart: unless-stopped
+    env_file:
+      - .env.pi
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      JAVA_OPTS: -XX:MaxRAMPercentage=75.0
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O - http://127.0.0.1:8080/actuator/health/readiness | grep -q '\"status\":\"UP\"' || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 40s
+    expose:
+      - "8080"
+
+volumes:
+  caddy_data:
+  caddy_config:

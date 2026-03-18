@@ -1,22 +1,24 @@
-version: '3.8'
-
 services:
-  # The frontend container running Nginx and serving static files
   frontend:
     build:
       context: .
       dockerfile: frontend.Dockerfile
+    restart: unless-stopped
     ports:
-      - "80:80"
+      - "8088:80"
     depends_on:
-      - backend
+      backend:
+        condition: service_started
 
-  # The backend container running the Spring Boot application
   backend:
     build:
       context: .
       dockerfile: backend.Dockerfile
-    # We do not expose the backend port 8080 to the host machine directly.
-    # Nginx will proxy /api/ requests to the backend internal network on port 8080.
-    ports:
-      - "8080:8080" # Exposed optionally for direct testing, but 80 is the main entry point
+    restart: unless-stopped
+    env_file:
+      - .env.pi
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      JAVA_OPTS: -XX:MaxRAMPercentage=75.0
+    expose:
+      - "8080"

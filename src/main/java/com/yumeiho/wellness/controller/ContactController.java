@@ -1,7 +1,10 @@
 package com.yumeiho.wellness.controller;
 
 import com.yumeiho.wellness.dto.ContactRequest;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.Valid;
+import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
@@ -12,8 +15,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 public class ContactController {
 
-    @Autowired
-    private JavaMailSender mailSender;
+    private static final Logger log = LoggerFactory.getLogger(ContactController.class);
+
+    private final JavaMailSender mailSender;
 
     @Value("${app.notification.email}")
     private String notificationEmail;
@@ -21,18 +25,15 @@ public class ContactController {
     @Value("${spring.mail.username}")
     private String fromEmail;
 
-    @PostMapping("/contact")
-    public ResponseEntity<String> submitContactForm(@RequestBody ContactRequest request) {
+    public ContactController(JavaMailSender mailSender) {
+        this.mailSender = mailSender;
+    }
 
-        // Log the received data to console
-        System.out.println("=================================================");
-        System.out.println("Received New Contact Request:");
-        System.out.println("Name:  " + request.getName());
-        System.out.println("Phone: " + request.getPhone());
-        System.out.println("=================================================");
+    @PostMapping("/contact")
+    public ResponseEntity<Map<String, String>> submitContactForm(@Valid @RequestBody ContactRequest request) {
+        log.info("Received new contact request from name='{}' phone='{}'", request.getName(), request.getPhone());
 
         try {
-            // Create and send the email
             SimpleMailMessage message = new SimpleMailMessage();
             message.setFrom(fromEmail);
             message.setTo(notificationEmail);
@@ -43,16 +44,19 @@ public class ContactController {
                     "---\nПисьмо сгенерировано автоматически с вашего сайта.");
 
             mailSender.send(message);
-            System.out.println("Notification email sent successfully to " + notificationEmail);
+            log.info("Notification email sent successfully to {}", notificationEmail);
 
-            return ResponseEntity.ok("{\"status\":\"success\", \"message\":\"Contact request received! Email sent.\"}");
+            return ResponseEntity.ok(Map.of(
+                    "status", "success",
+                    "message", "Contact request received"
+            ));
         } catch (Exception e) {
-            System.err.println("Error sending email: " + e.getMessage());
-            e.printStackTrace();
-            // Возвращаем ошибку клиента, чтобы JavaScript мог показать красную кнопку,
-            // так как вы хотите быть уверены, что заявка ушла.
+            log.error("Error sending notification email", e);
             return ResponseEntity.internalServerError()
-                    .body("{\"status\":\"error\", \"message\":\"Failed to send notification email\"}");
+                    .body(Map.of(
+                            "status", "error",
+                            "message", "Failed to send notification email"
+                    ));
         }
     }
 }

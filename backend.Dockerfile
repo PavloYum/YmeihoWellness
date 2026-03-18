@@ -1,26 +1,21 @@
-# Dockerfile for Spring Boot Application (Backend)
+# syntax=docker/dockerfile:1
 
-# Stage 1: Build the application using Maven
 FROM maven:3.9-eclipse-temurin-17-alpine AS build
 WORKDIR /app
 
-# Copy the pom.xml and download dependencies (caches this layer)
-COPY pom.xml .
-RUN mvn dependency:go-offline -B
+COPY pom.xml ./
+RUN mvn -B dependency:go-offline
 
-# Copy the source code and build the application
 COPY src ./src
-RUN mvn clean package -DskipTests
+RUN mvn -B clean package -DskipTests
 
-# Stage 2: Create a minimal runtime image containing only the built JAR
 FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
 
-# Copy the JAR file from the 'build' stage
-COPY --from=build /app/target/wellness-*-SNAPSHOT.jar ./app.jar
+RUN apk add --no-cache wget
 
-# Expose the internal port the Spring Boot app runs on
+COPY --from=build /app/target/wellness-*.jar ./app.jar
+
 EXPOSE 8080
 
-# Run the application
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
