@@ -1,22 +1,26 @@
 services:
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: yumeiho-cloudflared
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run --token ${CLOUDFLARE_TUNNEL_TOKEN}
+    depends_on:
+      caddy:
+        condition: service_started
+
   caddy:
     image: caddy:2.8-alpine
     container_name: yumeiho-caddy
     restart: unless-stopped
-    env_file:
-      - .env.pi
     depends_on:
       frontend:
         condition: service_healthy
       backend:
         condition: service_healthy
-    ports:
-      - "80:80"
-      - "443:443"
+    expose:
+      - "80"
     volumes:
       - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
-      - caddy_data:/data
-      - caddy_config:/config
 
   frontend:
     build:
@@ -55,7 +59,3 @@ services:
       start_period: 40s
     expose:
       - "8080"
-
-volumes:
-  caddy_data:
-  caddy_config:

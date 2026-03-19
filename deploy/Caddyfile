@@ -1,12 +1,11 @@
 {
-    email {$LETSENCRYPT_EMAIL}
+    auto_https off
 }
 
-{$SITE_DOMAIN}, {$SITE_WWW_DOMAIN} {
+:80 {
     encode zstd gzip
 
     header {
-        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
         X-Content-Type-Options "nosniff"
         X-Frame-Options "SAMEORIGIN"
         Referrer-Policy "strict-origin-when-cross-origin"
