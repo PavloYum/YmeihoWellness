@@ -1042,6 +1042,10 @@ h6 {
         padding: 80px 0;
     }
 
+    .header-container {
+        height: 72px;
+    }
+
     .header-actions.desktop-only {
         display: none;
     }
@@ -1052,13 +1056,16 @@ h6 {
 
     .nav {
         position: fixed;
-        top: 80px;
+        top: 72px;
         left: -100%;
         width: 100%;
-        height: calc(100vh - 80px);
+        height: calc(100vh - 72px);
         background: white;
+        display: flex;
         flex-direction: column;
-        padding: 40px 24px;
+        justify-content: flex-start;
+        gap: 24px;
+        padding: 28px 20px 24px;
         transition: var(--transition);
         overflow-y: auto;
     }
@@ -1071,20 +1078,22 @@ h6 {
         flex-direction: column;
         width: 100%;
         text-align: center;
-        gap: 24px;
-        margin-bottom: 40px;
+        gap: 16px;
+        margin-bottom: 0;
     }
 
     .nav-link {
-        font-size: 1.25rem;
+        font-size: 1.1rem;
         display: block;
+        padding: 6px 0;
     }
 
     .header-actions.mobile-only {
         display: flex;
         flex-direction: column;
         width: 100%;
-        gap: 16px;
+        gap: 12px;
+        margin-top: 4px;
     }
 
     .btn-block {
@@ -1093,12 +1102,40 @@ h6 {
         text-align: center;
     }
 
+    .hero {
+        min-height: auto;
+        padding: 124px 0 72px;
+    }
+
+    .hero-container {
+        gap: 36px;
+    }
+
+    .badge {
+        margin-bottom: 18px;
+    }
+
     .hero-title {
-        font-size: 2.5rem;
+        font-size: 2.25rem;
+        margin-bottom: 12px;
     }
 
     .section-title {
         font-size: 2rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.2rem;
+        margin-bottom: 18px;
+    }
+
+    .hero-text {
+        font-size: 1rem;
+        margin-bottom: 28px;
+    }
+
+    .hero-buttons {
+        gap: 12px;
     }
 
     .contact-info {
@@ -1191,13 +1228,12 @@ h6 {
 
     .pricing-table tbody {
         display: grid;
-        gap: 16px;
+        gap: 14px;
     }
 
     .pricing-table tr {
-        display: grid;
-        gap: 12px;
-        padding: 20px 18px;
+        display: block;
+        padding: 18px 18px 14px;
         background: var(--bg-card);
         border: 1px solid var(--border);
         border-radius: 20px;
@@ -1205,21 +1241,29 @@ h6 {
     }
 
     .pricing-table td {
-        display: grid;
-        grid-template-columns: 110px minmax(0, 1fr);
-        gap: 12px;
+        display: block;
         padding: 0;
+        margin-bottom: 10px;
         border-bottom: none;
-        align-items: start;
     }
 
     .pricing-table td::before {
         content: attr(data-label);
+        display: block;
+        margin-bottom: 2px;
         font-size: 0.82rem;
         font-weight: 700;
         letter-spacing: 0.02em;
         text-transform: uppercase;
         color: var(--text-muted);
+    }
+
+    .pricing-table td:last-child {
+        margin-bottom: 0;
+    }
+
+    .pricing-table td:first-child {
+        line-height: 1.4;
     }
 
     .pricing-table td:first-child,
@@ -1243,8 +1287,38 @@ h6 {
         padding: 72px 0;
     }
 
+    .nav {
+        padding: 24px 16px 20px;
+        gap: 20px;
+    }
+
+    .nav-list {
+        gap: 12px;
+    }
+
     .hero-buttons {
         flex-direction: column;
+    }
+
+    .hero {
+        padding: 116px 0 64px;
+    }
+
+    .hero-container {
+        gap: 28px;
+    }
+
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.05rem;
+    }
+
+    .hero-text {
+        line-height: 1.55;
+        margin-bottom: 24px;
     }
 
     .stats-grid {
@@ -1261,7 +1335,8 @@ h6 {
     }
 
     .special-offer {
-        padding: 24px 20px;
+        padding: 20px 16px;
+        margin-bottom: 32px;
     }
 
     .contact-container {
@@ -1297,17 +1372,15 @@ h6 {
     }
 
     .pricing-table tr {
-        padding: 18px 16px;
-        gap: 10px;
-    }
-
-    .pricing-table td {
-        grid-template-columns: 1fr;
-        gap: 4px;
+        padding: 16px 14px 12px;
     }
 
     .pricing-table td::before {
         font-size: 0.78rem;
+    }
+
+    .pricing-table td {
+        margin-bottom: 8px;
     }
 
     .discount {
