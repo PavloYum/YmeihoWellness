@@ -1407,3 +1407,131 @@ h6 {
         margin-bottom: 10px;
     }
 }
+
+/* Legal Pages */
+.legal-page {
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.12), transparent 32%),
+        radial-gradient(circle at top right, rgba(16, 185, 129, 0.10), transparent 28%),
+        var(--bg-light);
+}
+
+.legal-shell {
+    padding: 140px 0 80px;
+    position: relative;
+    z-index: 2;
+}
+
+.legal-card {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 48px;
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    border-radius: 32px;
+    box-shadow: var(--shadow-xl);
+    backdrop-filter: blur(10px);
+}
+
+.legal-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+    padding: 10px 16px;
+    border-radius: 999px;
+    background: rgba(56, 189, 248, 0.12);
+    color: var(--primary-dark);
+    font-weight: 700;
+    font-size: 0.95rem;
+}
+
+.legal-title {
+    margin-bottom: 12px;
+    font-size: clamp(2.1rem, 4vw, 3.2rem);
+}
+
+.legal-updated,
+.legal-lead,
+.legal-note {
+    color: var(--text-muted);
+}
+
+.legal-updated {
+    margin-bottom: 20px;
+}
+
+.legal-lead {
+    margin-bottom: 32px;
+    font-size: 1.08rem;
+}
+
+.legal-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 36px;
+}
+
+.legal-section + .legal-section {
+    margin-top: 32px;
+}
+
+.legal-section h2 {
+    margin-bottom: 14px;
+    font-size: 1.45rem;
+}
+
+.legal-section p + p {
+    margin-top: 12px;
+}
+
+.legal-section a {
+    color: var(--primary-dark);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+}
+
+.legal-list {
+    margin-top: 12px;
+    padding-left: 20px;
+}
+
+.legal-list li {
+    margin-bottom: 10px;
+}
+
+.legal-footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 12px;
+}
+
+.legal-footer-links a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+@media (max-width: 768px) {
+    .legal-shell {
+        padding: 112px 0 56px;
+    }
+
+    .legal-card {
+        padding: 28px 18px;
+        border-radius: 24px;
+    }
+
+    .legal-actions,
+    .legal-footer-links {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .legal-actions .btn {
+        width: 100%;
+    }
+}
