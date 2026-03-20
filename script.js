@@ -74,7 +74,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const btn = bookingForm.querySelector('button[type="submit"]');
             const originalText = btn.innerHTML;
 
-            const name = document.getElementById('name').value;
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+            const name = `${firstName} ${lastName}`.trim();
             const phone = document.getElementById('phone').value;
 
             // Loading state
