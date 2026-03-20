@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YumeihoWellness | Центр здоровой спины и суставов</title>
     <meta name="description"
-        content="Лечение спины и суставов без лекарств и операций в Германии (NRW). Метод кинезиотерапии, 15+ лет опыта.">
+        content="Лечение спины и суставов без лекарств и операций в Германии (NRW). Метод функциональной биомеханики тела, 15+ лет опыта.">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,21 +38,29 @@
                     <li><a href="#prices" class="nav-link">Прайс</a></li>
                     <li><a href="#contact" class="nav-link">Контакты</a></li>
                 </ul>
+                <div class="lang-switcher lang-switcher-mobile mobile-only" aria-label="Language switcher">
+                    <button type="button" class="lang-btn" data-lang="ru">RU</button>
+                    <button type="button" class="lang-btn" data-lang="de">DE</button>
+                </div>
                 <div class="header-actions mobile-only">
-                    <a href="tel:+4915237241232" class="btn btn-secondary btn-block"><i class="fa-solid fa-phone"></i>
-                        Звонок</a>
-                    <a href="https://wa.me/4915237241232" class="btn btn-whatsapp btn-block"><i
-                            class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+                    <a href="tel:+4915237241232" class="btn btn-secondary btn-block icon-only-btn" aria-label="Звонок" title="Звонок"><i class="fa-solid fa-phone"></i></a>
+                    <a href="https://wa.me/4915237241232" class="btn btn-whatsapp btn-block icon-only-btn" aria-label="WhatsApp" title="WhatsApp"><i
+                            class="fa-brands fa-whatsapp"></i></a>
                     <a href="#contact" class="btn btn-primary btn-block">Записаться</a>
                 </div>
             </nav>
 
             <div class="header-actions desktop-only">
-                <a href="tel:+4915237241232" class="btn btn-secondary btn-sm" title="Обычный звонок"><i
-                        class="fa-solid fa-phone"></i> Звонок</a>
-                <a href="https://wa.me/4915237241232" class="btn btn-whatsapp btn-sm" title="Написать в WhatsApp"><i
-                        class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+                <a href="tel:+4915237241232" class="btn btn-secondary btn-sm icon-only-btn" aria-label="Звонок" title="Обычный звонок"><i
+                        class="fa-solid fa-phone"></i></a>
+                <a href="https://wa.me/4915237241232" class="btn btn-whatsapp btn-sm icon-only-btn" aria-label="WhatsApp" title="Написать в WhatsApp"><i
+                        class="fa-brands fa-whatsapp"></i></a>
                 <a href="#contact" class="btn btn-primary btn-sm">Записаться</a>
+            </div>
+
+            <div class="lang-switcher desktop-only" aria-label="Language switcher">
+                <button type="button" class="lang-btn" data-lang="ru">RU</button>
+                <button type="button" class="lang-btn" data-lang="de">DE</button>
             </div>
 
             <button class="mobile-toggle" id="mobile-toggle" aria-label="Открыть меню">
@@ -69,7 +77,7 @@
                     <span class="badge">Инновационный подход</span>
                     <h1 class="hero-title">Центр здоровой спины и суставов</h1>
                     <h2 class="hero-subtitle">Восстановление без лекарств и операций</h2>
-                    <p class="hero-text">Вернем свободу движений с помощью проверенного метода кинезиотерапии и
+                    <p class="hero-text">Вернем свободу движений с помощью проверенного метода функциональной биомеханики тела и
                         юмейхо. Мы устраняем причину боли, а не её симптомы.</p>
                     <div class="hero-buttons">
                         <a href="#contact" class="btn btn-primary btn-lg">Записаться на консультацию <i
@@ -204,7 +212,7 @@
                         </div>
                     </div>
                     <div class="offer-price">49€</div>
-                    <a href="#contact" class="btn btn-white">Записаться</a>
+                    <a href="#contact" class="btn btn-white btn-offer-pulse">Записаться</a>
                 </div>
 
                 <div class="table-container">
@@ -228,12 +236,12 @@
                                 <td data-label="Стоимость">80€</td>
                             </tr>
                             <tr>
-                                <td data-label="Услуга">Кинезиотерапия (индивидуальное занятие)</td>
+                                <td data-label="Услуга">Функциональная биомеханика тела (индивидуальное занятие)</td>
                                 <td data-label="Длительность">45 мин</td>
                                 <td data-label="Стоимость">60€</td>
                             </tr>
                             <tr>
-                                <td data-label="Услуга">Комплексный сеанс (Юмейхо + Кинезиотерапия)</td>
+                                <td data-label="Услуга">Комплексный сеанс (Юмейхо + Функциональная биомеханика тела)</td>
                                 <td data-label="Длительность">90 мин</td>
                                 <td data-label="Стоимость">120€</td>
                             </tr>
@@ -287,10 +295,9 @@
                         <div class="method-item" style="align-items: flex-start; flex-direction: column; gap: 15px;">
                             <span style="color: var(--text-muted); font-size: 0.9rem;">Связаться с нами:</span>
                             <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-                                <a href="tel:+4915237241232" class="btn btn-secondary"><i class="fa-solid fa-phone"></i>
-                                    Звонок</a>
-                                <a href="https://wa.me/4915237241232" class="btn btn-whatsapp"><i
-                                        class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+                                <a href="tel:+4915237241232" class="btn btn-secondary icon-only-btn" aria-label="Звонок" title="Звонок"><i class="fa-solid fa-phone"></i></a>
+                                <a href="https://wa.me/4915237241232" class="btn btn-whatsapp icon-only-btn" aria-label="WhatsApp" title="WhatsApp"><i
+                                        class="fa-brands fa-whatsapp"></i></a>
                             </div>
                         </div>
                     </div>

@@ -198,6 +198,20 @@ h6 {
     box-shadow: var(--shadow-lg);
 }
 
+.btn-offer-pulse {
+    background: #ef4444;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    animation: offerPulse 1.35s ease-in-out infinite;
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.5);
+}
+
+.btn-offer-pulse:hover {
+    background: #dc2626;
+    color: white;
+    animation-play-state: paused;
+}
+
 .btn-whatsapp {
     background: white;
     color: #25D366;
@@ -209,6 +223,32 @@ h6 {
     border-color: #16a34a;
     color: #16a34a;
     transform: translateY(-2px);
+}
+
+.icon-only-btn {
+    width: 52px;
+    min-width: 52px;
+    height: 52px;
+    padding: 0;
+    border-radius: 999px;
+    font-size: 1.1rem;
+}
+
+@keyframes offerPulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.45);
+    }
+
+    50% {
+        transform: scale(1.04);
+        box-shadow: 0 0 0 14px rgba(239, 68, 68, 0);
+    }
+
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+    }
 }
 
 /* Background Decorations */
@@ -320,6 +360,47 @@ h6 {
     display: flex;
     align-items: center;
     gap: 20px;
+}
+
+.lang-switcher {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px;
+    background: rgba(248, 250, 252, 0.92);
+    border: 1px solid rgba(226, 232, 240, 0.95);
+    border-radius: 999px;
+    box-shadow: var(--shadow-sm);
+}
+
+.lang-switcher.desktop-only {
+    display: inline-flex;
+}
+
+.lang-btn {
+    min-width: 44px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--text-muted);
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.lang-btn:hover {
+    color: var(--primary-dark);
+    background: rgba(56, 189, 248, 0.12);
+}
+
+.lang-btn.is-active {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    box-shadow: 0 6px 16px rgba(2, 132, 199, 0.22);
 }
 
 .phone-link {
@@ -1050,6 +1131,10 @@ h6 {
         display: none;
     }
 
+    .lang-switcher.desktop-only {
+        display: none;
+    }
+
     .mobile-toggle {
         display: block;
     }
@@ -1080,6 +1165,12 @@ h6 {
         text-align: center;
         gap: 16px;
         margin-bottom: 0;
+    }
+
+    .lang-switcher-mobile {
+        display: inline-flex;
+        width: fit-content;
+        margin: 0 auto;
     }
 
     .nav-link {
