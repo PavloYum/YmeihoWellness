@@ -1525,6 +1525,12 @@ h6 {
     backdrop-filter: blur(10px);
 }
 
+.legal-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
 .legal-kicker {
     display: inline-flex;
     align-items: center;
@@ -1614,6 +1620,15 @@ h6 {
     .legal-card {
         padding: 28px 18px;
         border-radius: 24px;
+    }
+
+    .legal-header-actions {
+        gap: 8px;
+    }
+
+    .legal-header-actions .btn {
+        padding-left: 18px;
+        padding-right: 18px;
     }
 
     .legal-actions,

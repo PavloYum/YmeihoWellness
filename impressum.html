@@ -24,13 +24,19 @@
             <a href="index.html" class="logo">
                 <i class="fa-solid fa-leaf"></i> <span>Yumeiho</span>Wellness
             </a>
-            <a href="index.html" class="btn btn-secondary btn-sm">Zur Startseite</a>
+            <div class="legal-header-actions">
+                <div class="lang-switcher" aria-label="Language switcher">
+                    <button type="button" class="lang-btn" data-lang="ru">RU</button>
+                    <button type="button" class="lang-btn" data-lang="de">DE</button>
+                </div>
+                <a href="index.html" class="btn btn-secondary btn-sm" id="legal-home-link">Zur Startseite</a>
+            </div>
         </div>
     </header>
 
     <main class="legal-shell">
         <div class="container">
-            <article class="legal-card">
+            <article class="legal-card" data-legal-page="impressum">
                 <div class="legal-kicker"><i class="fa-solid fa-scale-balanced"></i> Impressum</div>
                 <h1 class="legal-title">Impressum</h1>
                 <p class="legal-updated">Stand: 20.03.2026</p>
@@ -94,6 +100,7 @@
             </div>
         </div>
     </footer>
+    <script src="legal.js"></script>
 </body>
 
 </html>
