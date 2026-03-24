@@ -13,6 +13,12 @@ COPY styles.css /usr/share/nginx/html/
 COPY script.js /usr/share/nginx/html/
 COPY legal.js /usr/share/nginx/html/
 COPY hero.png /usr/share/nginx/html/
+COPY service-spine.svg /usr/share/nginx/html/
+COPY service-scoliosis.svg /usr/share/nginx/html/
+COPY service-backpain.svg /usr/share/nginx/html/
+COPY service-osteochondrosis.svg /usr/share/nginx/html/
+COPY service-rehab.svg /usr/share/nginx/html/
+COPY service-joints.svg /usr/share/nginx/html/
 
 EXPOSE 80
 

@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const translations = {
         ru: {
             documentLang: 'ru',
-            title: 'YumeihoWellness | Центр здоровой спины и суставов',
+            title: 'YumeihoWellness | Практика Yumeiho для тела и движения',
             metaDescription: 'Лечение спины и суставов без лекарств и операций в Германии (NRW). Метод функциональной биомеханики тела, 15+ лет опыта.',
             mobileToggleAria: 'Открыть меню',
             navAbout: 'О нас',
@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
             whatsappTitle: 'Написать в WhatsApp',
             bookShort: 'Записаться',
             badge: 'Инновационный подход',
-            heroTitle: 'Центр здоровой спины и суставов',
+            heroTitle: 'Практика Yumeiho для тела и движения',
             heroSubtitle: 'Восстановление без лекарств и операций',
             heroText: 'Вернем свободу движений с помощью проверенного метода функциональной биомеханики тела и юмейхо. Мы устраняем причину боли, а не её симптомы.',
             heroCta: 'Записаться на консультацию',
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ['Боли в спине и шее', 'Снятие мышечных спазмов и восстановление нормального кровообращения.'],
                 ['Остеохондроз', 'Остановка дегенеративных процессов и восстановление питания межпозвонковых дисков.'],
                 ['Реабилитация', 'Эффективное восстановление после травм, операций и длительных заболеваний.'],
-                ['Суставы', 'Устранение артрозов, артритов и восстановление подвижности крупных суставов.']
+                ['Суставы', 'Способствуем снижению боли в суставах и улучшению подвижности.']
             ],
             aboutTitle: 'Почему выбирают нас?',
             aboutText: 'Мы гордимся нашими результатами и доверием сотен пациентов. Наш подход основан на глубоком понимании биомеханики тела и многолетнем практическом опыте.',
@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         de: {
             documentLang: 'de',
-            title: 'YumeihoWellness | Zentrum fuer einen gesunden Ruecken und Gelenke',
+            title: 'YumeihoWellness | Yumeiho-Praxis fuer Koerper und Bewegung',
             metaDescription: 'Ruecken- und Gelenkbehandlung ohne Medikamente und Operationen in Deutschland (NRW). Methode der funktionalen Koerperbiomechanik, mehr als 15 Jahre Erfahrung.',
             mobileToggleAria: 'Menue oeffnen',
             navAbout: 'Ueber uns',
@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
             whatsappTitle: 'In WhatsApp schreiben',
             bookShort: 'Buchen',
             badge: 'Innovativer Ansatz',
-            heroTitle: 'Zentrum fuer einen gesunden Ruecken und Gelenke',
+            heroTitle: 'Yumeiho-Praxis fuer Koerper und Bewegung',
             heroSubtitle: 'Regeneration ohne Medikamente und Operationen',
             heroText: 'Wir geben Ihnen Bewegungsfreiheit mit einer bewaehrten Methode der funktionalen Koerperbiomechanik und Yumeiho zurueck. Wir behandeln die Ursache des Schmerzes und nicht nur die Symptome.',
             heroCta: 'Beratung buchen',
@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ['Ruecken- und Nackenschmerzen', 'Loesung von Muskelspannungen und Wiederherstellung einer normalen Durchblutung.'],
                 ['Osteochondrose', 'Verlangsamung degenerativer Prozesse und bessere Versorgung der Bandscheiben.'],
                 ['Rehabilitation', 'Wirksame Erholung nach Verletzungen, Operationen und langwierigen Beschwerden.'],
-                ['Gelenke', 'Linderung bei Arthrose, Arthritis und Wiederherstellung der Beweglichkeit grosser Gelenke.']
+                ['Gelenke', 'Wir unterstuetzen die Schmerzlinderung in den Gelenken und verbessern die Beweglichkeit.']
             ],
             aboutTitle: 'Warum entscheiden sich Patienten fuer uns?',
             aboutText: 'Wir sind stolz auf unsere Ergebnisse und das Vertrauen hunderter Patienten. Unser Ansatz basiert auf einem tiefen Verstaendnis der Koerperbiomechanik und langjaehriger Praxiserfahrung.',
