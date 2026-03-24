@@ -51,11 +51,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 ['Комплексный сеанс (Юмейхо + Функциональная биомеханика тела)', '90 мин', '120€'],
                 ['Курс лечения (10 сеансов Юмейхо)', '10 × 60 мин', '700€ <span class="discount">-12%</span>']
             ],
+            specialistBadge: 'Наш специалист',
+            specialistName: 'Павел Бойко',
+            specialistSubtitle: 'Специалист по функциональной биомеханике тела и практике Yumeiho.',
+            specialistPoints: [
+                'Опыт практической работы более 15 лет',
+                'Индивидуальный подход к каждому пациенту',
+                'Работа с причиной боли и восстановлением движения'
+            ],
+            specialistCta: 'Записаться на консультацию',
             locationTitle: 'Наш адрес',
             locationSubtitle: 'Ждем вас по адресу: Gerther str.42, 44805 Bochum.',
             locationHours: 'Пн-Пт: 09:00 - 20:00',
             contactTitle: 'Начните жизнь без боли',
-            contactText: 'Оставьте заявку, и наш специалист свяжется с вами в течение 15 минут для уточнения деталей и ответа на ваши вопросы.',
+            contactText: 'Оставьте заявку, и наш специалист свяжется с вами для уточнения деталей и ответа на ваши вопросы.',
             contactLead: 'Связаться с нами:',
             formTitle: 'Запишитесь на консультацию по выгодной цене',
             firstNameLabel: 'Имя',
@@ -136,11 +145,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 ['Kombisitzung (Yumeiho + Funktionale Koerperbiomechanik)', '90 Min.', '120€'],
                 ['Behandlungskurs (10 Yumeiho-Sitzungen)', '10 × 60 Min.', '700€ <span class="discount">-12%</span>']
             ],
+            specialistBadge: 'Unser Spezialist',
+            specialistName: 'Pavel Boyko',
+            specialistSubtitle: 'Spezialist fuer funktionale Koerperbiomechanik und Yumeiho-Praxis.',
+            specialistPoints: [
+                'Mehr als 15 Jahre praktische Erfahrung',
+                'Individueller Ansatz fuer jeden Patienten',
+                'Arbeit an der Schmerzursache und Wiederherstellung der Bewegung'
+            ],
+            specialistCta: 'Beratung buchen',
             locationTitle: 'Unser Standort',
             locationSubtitle: 'Wir freuen uns auf Ihren Besuch in der Gerther Str. 42, 44805 Bochum.',
             locationHours: 'Mo-Fr: 09:00 - 20:00',
             contactTitle: 'Starten Sie ein Leben ohne Schmerzen',
-            contactText: 'Senden Sie uns eine Anfrage, und unser Spezialist meldet sich innerhalb von 15 Minuten bei Ihnen, um alle Details zu klaeren und Ihre Fragen zu beantworten.',
+            contactText: 'Senden Sie uns eine Anfrage, und unser Spezialist meldet sich bei Ihnen, um alle Details zu klaeren und Ihre Fragen zu beantworten.',
             contactLead: 'Kontaktieren Sie uns:',
             formTitle: 'Vereinbaren Sie Ihre Beratung zum attraktiven Preis',
             firstNameLabel: 'Vorname',
@@ -311,6 +329,18 @@ document.addEventListener('DOMContentLoaded', () => {
             cells[0].dataset.label = t.tableHeaders[0];
             cells[1].dataset.label = t.tableHeaders[1];
             cells[2].dataset.label = t.tableHeaders[2];
+        });
+
+        setText('#specialist .specialist-badge', t.specialistBadge);
+        setText('#specialist .specialist-title', t.specialistName);
+        setText('#specialist .specialist-subtitle', t.specialistSubtitle);
+        setText('#specialist .specialist-cta', t.specialistCta);
+
+        const specialistPoints = document.querySelectorAll('#specialist .specialist-points li span');
+        specialistPoints.forEach((point, index) => {
+            if (t.specialistPoints[index]) {
+                point.textContent = t.specialistPoints[index];
+            }
         });
 
         setText('#clinics .section-title', t.locationTitle);

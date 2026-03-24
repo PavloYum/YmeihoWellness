@@ -590,6 +590,10 @@ h6 {
     border: 1px solid var(--border);
     transition: var(--transition);
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
 }
 
 .service-card:hover {
@@ -599,8 +603,8 @@ h6 {
 }
 
 .service-icon {
-    width: 70px;
-    height: 70px;
+    width: 88px;
+    height: 88px;
     border-radius: 20px;
     background: rgba(2, 132, 199, 0.05);
     display: inline-flex;
@@ -611,9 +615,10 @@ h6 {
 }
 
 .service-icon img {
-    width: 46px;
-    height: 46px;
+    width: 62px;
+    height: 62px;
     object-fit: contain;
+    filter: saturate(125%) hue-rotate(-2deg) brightness(0.95) contrast(1.03);
 }
 
 .service-card:hover .service-icon {
@@ -624,11 +629,19 @@ h6 {
 .service-title {
     font-size: 1.25rem;
     margin-bottom: 12px;
+    min-height: 2.8em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .service-desc {
     color: var(--text-muted);
     font-size: 0.95rem;
+    line-height: 1.6;
+    min-height: 4.8em;
+    max-width: 30ch;
+    margin: 0 auto;
 }
 
 /* About / Advantages */
@@ -790,6 +803,82 @@ h6 {
     border-radius: 10px;
     margin-left: 8px;
     vertical-align: middle;
+}
+
+/* Specialist */
+.specialist-card {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: minmax(300px, 430px) 1fr;
+    align-items: stretch;
+}
+
+.specialist-photo-wrap {
+    min-height: 460px;
+    background: linear-gradient(135deg, #f8fafc 0%, #eef2f7 100%);
+}
+
+.specialist-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.specialist-content {
+    padding: 44px 42px;
+    display: flex;
+    flex-direction: column;
+}
+
+.specialist-badge {
+    margin-bottom: 12px;
+    font-size: 0.9rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.specialist-title {
+    font-size: clamp(1.8rem, 2.6vw, 2.35rem);
+    margin-bottom: 10px;
+}
+
+.specialist-subtitle {
+    font-size: 1.06rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+}
+
+.specialist-points {
+    list-style: none;
+    margin: 0 0 30px;
+    padding: 0;
+    display: grid;
+    gap: 12px;
+}
+
+.specialist-points li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 1rem;
+    color: var(--text-main);
+}
+
+.specialist-points i {
+    color: var(--secondary);
+    margin-top: 4px;
+}
+
+.specialist-cta {
+    align-self: flex-start;
 }
 
 /* Locations */
@@ -1111,6 +1200,22 @@ h6 {
         text-align: center;
         gap: 20px;
     }
+
+    .specialist-card {
+        grid-template-columns: 1fr;
+    }
+
+    .specialist-photo-wrap {
+        min-height: 380px;
+    }
+
+    .specialist-content {
+        padding: 30px 24px;
+    }
+
+    .specialist-cta {
+        align-self: center;
+    }
 }
 
 @media (max-width: 768px) {
@@ -1125,6 +1230,33 @@ h6 {
 
     .section {
         padding: 80px 0;
+    }
+
+    .specialist-photo-wrap {
+        min-height: 330px;
+    }
+
+    .specialist-subtitle {
+        font-size: 1rem;
+    }
+
+    .service-icon {
+        width: 80px;
+        height: 80px;
+    }
+
+    .service-icon img {
+        width: 56px;
+        height: 56px;
+    }
+
+    .service-title {
+        min-height: 2.5em;
+    }
+
+    .service-desc {
+        min-height: 4.4em;
+        max-width: 28ch;
     }
 
     .header-container {
