@@ -9,8 +9,8 @@
     /* Soft Green */
     --secondary-hover: #059669;
 
-    --bg-main: #ffffff;
-    --bg-light: #f8fafc;
+    --bg-main: #f1f5f9;
+    --bg-light: #eaf1f7;
     --bg-card: #ffffff;
 
     --text-main: #0f172a;
@@ -879,6 +879,9 @@ h6 {
 
 .specialist-cta {
     align-self: flex-start;
+    padding: 14px 30px;
+    margin-top: 4px;
+    min-height: 52px;
 }
 
 /* Locations */
