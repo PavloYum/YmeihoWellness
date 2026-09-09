@@ -51,6 +51,8 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: prod
       JAVA_OPTS: -XX:MaxRAMPercentage=75.0
+    volumes:
+      - ./data:/app/data
     healthcheck:
       test: ["CMD-SHELL", "wget -q -O - http://127.0.0.1:8080/actuator/health/readiness | grep -q '\"status\":\"UP\"' || exit 1"]
       interval: 30s
@@ -59,3 +61,5 @@ services:
       start_period: 40s
     expose:
       - "8080"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

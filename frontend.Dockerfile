@@ -6,11 +6,15 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 # Copy static frontend files to Nginx's serving directory
 # We are currently in the project root, so we copy HTML, CSS, JS and images
 COPY index.html /usr/share/nginx/html/
+COPY booking.html /usr/share/nginx/html/
+COPY slot-admin.html /usr/share/nginx/html/
 COPY datenschutz.html /usr/share/nginx/html/
 COPY nutzungsbedingungen.html /usr/share/nginx/html/
 COPY impressum.html /usr/share/nginx/html/
 COPY styles.css /usr/share/nginx/html/
 COPY script.js /usr/share/nginx/html/
+COPY booking.js /usr/share/nginx/html/
+COPY slot-admin.js /usr/share/nginx/html/
 COPY legal.js /usr/share/nginx/html/
 COPY hero.png /usr/share/nginx/html/
 COPY specialist.png /usr/share/nginx/html/

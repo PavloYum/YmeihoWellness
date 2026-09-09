@@ -20,5 +20,7 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: prod
       JAVA_OPTS: -XX:MaxRAMPercentage=75.0
+    volumes:
+      - ./data:/app/data
     expose:
       - "8080"

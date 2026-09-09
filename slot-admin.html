@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Управление временем | YumeihoWellness</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=20260804a">
+</head>
+
+<body class="booking-page">
+    <main class="booking-main">
+        <section class="booking-shell">
+            <div class="container">
+                <div class="admin-panel">
+                    <div class="admin-header">
+                        <p class="booking-kicker">YumeihoWellness</p>
+                        <h1>Управление временем записи</h1>
+                        <p>Отметьте время, которое нужно заблокировать для онлайн-записи, и сохраните изменения.</p>
+                    </div>
+
+                    <div id="admin-status" class="payment-status" hidden></div>
+
+                    <div class="admin-token-row">
+                        <div class="date-input-wrap">
+                            <label for="admin-token">Код администратора</label>
+                            <input type="password" id="admin-token" autocomplete="current-password" placeholder="Введите код">
+                        </div>
+                        <button type="button" class="btn btn-secondary btn-md" id="save-token">Запомнить</button>
+                    </div>
+
+                    <div class="admin-controls">
+                        <div class="date-input-wrap">
+                            <label for="admin-date">Дата</label>
+                            <input type="date" id="admin-date">
+                        </div>
+                        <button type="button" class="btn btn-primary btn-md" id="save-blocks">Сохранить</button>
+                    </div>
+
+                    <div class="admin-slots" id="admin-slots"></div>
+
+                    <div class="admin-bookings-section">
+                        <div class="admin-section-head">
+                            <div>
+                                <p class="booking-kicker">Единый список</p>
+                                <h2>Будущие записи</h2>
+                            </div>
+                            <button type="button" class="btn btn-secondary btn-md" id="refresh-bookings">Обновить</button>
+                        </div>
+                        <div class="admin-bookings" id="admin-bookings"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="slot-admin.js?v=20260804b"></script>
+</body>
+
+</html>

@@ -1,11 +1,12 @@
 param(
     [Parameter(Mandatory = $true)]
-    [string]$Host,
+    [string]$TargetHost,
 
     [string]$User = "pi",
     [int]$Port = 22,
     [string]$RemoteDir = "/opt/yumeiho-wellness",
     [string]$EnvFile = ".env.pi",
+    [string]$IdentityFile = "",
     [switch]$SkipBuild,
     [switch]$InstallDocker
 )
@@ -48,13 +49,19 @@ if (-not (Test-Path (Join-Path $ProjectRoot "docker-compose.pi.yml"))) {
     throw "docker-compose.pi.yml not found in $ProjectRoot."
 }
 
+$DeployScriptPath = Join-Path $ScriptDir "remote-deploy.sh"
+if (-not (Test-Path $DeployScriptPath)) {
+    throw "remote-deploy.sh not found in $ScriptDir."
+}
+
 $Stamp = Get-Date -Format "yyyyMMdd-HHmmss"
 $ArchiveLocal = Join-Path $env:TEMP "yumeiho-deploy-$Stamp.tar.gz"
 $RemoteArchive = "/tmp/yumeiho-deploy-$Stamp.tar.gz"
 $RemoteEnv = "/tmp/yumeiho-env-$Stamp"
+$RemoteDeployScript = "/tmp/yumeiho-remote-deploy-$Stamp.sh"
 $EffectiveUser = $User
-$EffectiveHost = $Host
-if ($Host -match "^(?<u>[^@]+)@(?<h>.+)$") {
+$EffectiveHost = $TargetHost
+if ($TargetHost -match "^(?<u>[^@]+)@(?<h>.+)$") {
     if ($User -eq "pi") {
         $EffectiveUser = $Matches["u"]
     }
@@ -64,6 +71,10 @@ $EffectiveHost = $EffectiveHost.Trim("[", "]")
 $SshRemoteTarget = "$EffectiveUser@$EffectiveHost"
 $ScpHost = if ($EffectiveHost.Contains(":")) { "[$EffectiveHost]" } else { $EffectiveHost }
 $ScpRemoteTarget = "$EffectiveUser@$ScpHost"
+$IdentityArgs = @()
+if ($IdentityFile) {
+    $IdentityArgs = @("-i", (Resolve-ProjectFile -ProjectRoot $ProjectRoot -PathValue $IdentityFile))
+}
 $SkipBuildInt = if ($SkipBuild) { 1 } else { 0 }
 $InstallDockerInt = if ($InstallDocker) { 1 } else { 0 }
 
@@ -76,6 +87,7 @@ try {
         --exclude="target" `
         --exclude=".env" `
         --exclude=".env.pi" `
+        --exclude="data" `
         --exclude="*.log" `
         -czf $ArchiveLocal .
 } finally {
@@ -87,56 +99,14 @@ if (-not (Test-Path $ArchiveLocal)) {
 }
 
 Write-Host "Uploading bundle to $SshRemoteTarget ..."
-& scp -P $Port $ArchiveLocal "$ScpRemoteTarget`:$RemoteArchive"
-& scp -P $Port $EnvPath "$ScpRemoteTarget`:$RemoteEnv"
-
-$RemoteScript = @"
-set -euo pipefail
-
-REMOTE_DIR='$RemoteDir'
-REMOTE_ARCHIVE='$RemoteArchive'
-REMOTE_ENV='$RemoteEnv'
-SKIP_BUILD='$SkipBuildInt'
-INSTALL_DOCKER='$InstallDockerInt'
-
-if [ "\$INSTALL_DOCKER" = "1" ] && ! command -v docker >/dev/null 2>&1; then
-  if command -v sudo >/dev/null 2>&1; then
-    curl -fsSL https://get.docker.com | sudo sh
-  else
-    curl -fsSL https://get.docker.com | sh
-  fi
-fi
-
-if docker info >/dev/null 2>&1; then
-  DC='docker compose'
-elif sudo -n docker info >/dev/null 2>&1; then
-  DC='sudo docker compose'
-else
-  echo 'Docker daemon is not reachable for current user. Add user to docker group or use sudo.'
-  exit 1
-fi
-
-mkdir -p "\$REMOTE_DIR"
-if [ -f "\$REMOTE_DIR/docker-compose.pi.yml" ]; then
-  \$DC -f "\$REMOTE_DIR/docker-compose.pi.yml" down --remove-orphans || true
-fi
-find "\$REMOTE_DIR" -mindepth 1 -maxdepth 1 -exec rm -rf {} +
-tar -xzf "\$REMOTE_ARCHIVE" -C "\$REMOTE_DIR"
-mv "\$REMOTE_ENV" "\$REMOTE_DIR/.env.pi"
-rm -f "\$REMOTE_ARCHIVE"
-
-cd "\$REMOTE_DIR"
-if [ "\$SKIP_BUILD" = "1" ]; then
-  \$DC -f docker-compose.pi.yml --env-file .env.pi up -d --remove-orphans
-else
-  \$DC -f docker-compose.pi.yml --env-file .env.pi up -d --build --remove-orphans
-fi
-\$DC -f docker-compose.pi.yml ps
-"@
+& scp @IdentityArgs -P $Port $ArchiveLocal "$ScpRemoteTarget`:$RemoteArchive"
+& scp @IdentityArgs -P $Port $EnvPath "$ScpRemoteTarget`:$RemoteEnv"
+& scp @IdentityArgs -P $Port $DeployScriptPath "$ScpRemoteTarget`:$RemoteDeployScript"
 
 Write-Host "Running remote deploy commands..."
+$RemoteCommand = "REMOTE_DIR='$RemoteDir' REMOTE_ARCHIVE='$RemoteArchive' REMOTE_ENV='$RemoteEnv' SKIP_BUILD='$SkipBuildInt' INSTALL_DOCKER='$InstallDockerInt' bash '$RemoteDeployScript'"
 try {
-    $RemoteScript | & ssh -p $Port $SshRemoteTarget "bash -s"
+    & ssh @IdentityArgs -p $Port $SshRemoteTarget $RemoteCommand
 } finally {
     if (Test-Path $ArchiveLocal) {
         Remove-Item $ArchiveLocal -Force

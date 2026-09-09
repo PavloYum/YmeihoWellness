@@ -43,7 +43,9 @@ document.addEventListener('DOMContentLoaded', () => {
             offerTitle: 'Специальное предложение!',
             offerText: 'Первичная консультация + пробное занятие',
             offerButton: 'Записаться',
-            tableHeaders: ['Услуга', 'Длительность', 'Стоимость'],
+            serviceBook: 'Выбрать время',
+            priceBook: 'Выбрать',
+            tableHeaders: ['Услуга', 'Длительность', 'Стоимость', 'Запись'],
             pricingRows: [
                 ['Первичная консультация специалиста', '30 мин', '30€'],
                 ['Сеанс Юмейхо (базовый)', '60 мин', '80€'],
@@ -137,7 +139,9 @@ document.addEventListener('DOMContentLoaded', () => {
             offerTitle: 'Sonderangebot!',
             offerText: 'Erstberatung + Probestunde',
             offerButton: 'Buchen',
-            tableHeaders: ['Leistung', 'Dauer', 'Preis'],
+            serviceBook: 'Zeit waehlen',
+            priceBook: 'Waehlen',
+            tableHeaders: ['Leistung', 'Dauer', 'Preis', 'Buchung'],
             pricingRows: [
                 ['Erstberatung beim Spezialisten', '30 Min.', '30€'],
                 ['Yumeiho-Sitzung (Basis)', '60 Min.', '80€'],
@@ -291,6 +295,10 @@ document.addEventListener('DOMContentLoaded', () => {
             if (description) {
                 card.querySelector('.service-desc').textContent = description;
             }
+            const serviceBookLink = card.querySelector('.service-book-link');
+            if (serviceBookLink) {
+                serviceBookLink.textContent = t.serviceBook;
+            }
         });
 
         setText('#about .section-title', t.aboutTitle);
@@ -318,17 +326,24 @@ document.addEventListener('DOMContentLoaded', () => {
         priceRows.forEach((row, index) => {
             const cells = row.querySelectorAll('td');
             const translatedRow = t.pricingRows[index];
-            if (!translatedRow || cells.length !== 3) {
+            if (!translatedRow || cells.length < 3) {
                 return;
             }
 
             cells[0].textContent = translatedRow[0];
             cells[1].textContent = translatedRow[1];
             cells[2].innerHTML = translatedRow[2];
+            const priceBookLink = cells[3] && cells[3].querySelector('.price-book-link');
+            if (priceBookLink) {
+                priceBookLink.textContent = t.priceBook;
+            }
 
             cells[0].dataset.label = t.tableHeaders[0];
             cells[1].dataset.label = t.tableHeaders[1];
             cells[2].dataset.label = t.tableHeaders[2];
+            if (cells[3]) {
+                cells[3].dataset.label = t.tableHeaders[3];
+            }
         });
 
         setText('#specialist .specialist-badge', t.specialistBadge);

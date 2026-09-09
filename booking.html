@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Бронирование | YumeihoWellness</title>
+    <meta name="description" content="Выберите услугу, удобное время и оплатите бронирование YumeihoWellness через Stripe.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@300;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css?v=20260324g">
+</head>
+
+<body class="booking-page">
+    <header class="header booking-header" id="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <i class="fa-solid fa-leaf"></i> <span>Yumeiho</span>Wellness
+            </a>
+            <div class="header-actions desktop-only">
+                <a href="tel:+4915237241232" class="btn btn-secondary btn-sm icon-only-btn" aria-label="Звонок" title="Обычный звонок"><i class="fa-solid fa-phone"></i></a>
+                <a href="https://wa.me/4915237241232" class="btn btn-whatsapp btn-sm icon-only-btn" aria-label="WhatsApp" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+            </div>
+            <div class="lang-switcher" aria-label="Language switcher">
+                <button type="button" class="lang-btn" data-lang="ru">RU</button>
+                <button type="button" class="lang-btn" data-lang="de">DE</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="booking-main">
+        <section class="booking-shell">
+            <div class="container">
+                <div id="payment-status" class="payment-status" hidden></div>
+
+                <div class="booking-layout">
+                    <section class="booking-panel booking-panel-primary">
+                        <a href="index.html#prices" class="back-link"><i class="fa-solid fa-arrow-left"></i> <span data-i18n="back">Назад к услугам</span></a>
+                        <p class="booking-kicker" data-i18n="kicker">Онлайн-запись</p>
+                        <h1 data-i18n="title">Выберите услугу и время</h1>
+                        <p class="booking-intro" data-i18n="intro">После выбора времени вы перейдете на защищенную страницу Stripe для оплаты.</p>
+
+                        <form id="checkout-form" class="checkout-form">
+                            <fieldset class="booking-fieldset">
+                                <legend data-i18n="serviceLegend">Услуга</legend>
+                                <div class="service-options" id="service-options"></div>
+                            </fieldset>
+
+                            <fieldset class="booking-fieldset">
+                                <legend data-i18n="timeLegend">Дата и время</legend>
+                                <div class="wheel-picker" aria-label="Дата и время">
+                                    <div class="wheel-column">
+                                        <span class="wheel-label" data-i18n="dateLabel">Дата приема</span>
+                                        <div class="wheel-list" id="date-wheel" role="listbox" tabindex="0"></div>
+                                    </div>
+                                    <div class="wheel-column wheel-column-time">
+                                        <span class="wheel-label" data-i18n="timeLabel">Время</span>
+                                        <div class="wheel-list" id="time-wheel" role="listbox" tabindex="0"></div>
+                                    </div>
+                                    <div class="wheel-selection" aria-hidden="true"></div>
+                                </div>
+                                <p class="date-window-note" data-i18n="dateWindow">Запись доступна на месяц вперед.</p>
+                            </fieldset>
+
+                            <fieldset class="booking-fieldset client-fields">
+                                <legend data-i18n="clientLegend">Ваши данные</legend>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="clientName" data-i18n="nameLabel">Имя и фамилия</label>
+                                        <div class="input-icon-wrapper">
+                                            <i class="fa-regular fa-user"></i>
+                                            <input type="text" id="clientName" name="clientName" required autocomplete="name" placeholder="Имя Фамилия" data-i18n-placeholder="namePlaceholder">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="clientPhone" data-i18n="phoneLabel">Телефон</label>
+                                        <div class="input-icon-wrapper">
+                                            <i class="fa-solid fa-phone"></i>
+                                            <input type="tel" id="clientPhone" name="clientPhone" required autocomplete="tel" placeholder="+49 ___ ___ __ __" data-i18n-placeholder="phonePlaceholder">
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <p class="form-disclaimer" data-i18n="disclaimer">Оплата проходит на стороне Stripe. Данные бронирования будут переданы нам после успешной оплаты.</p>
+                        </form>
+                    </section>
+
+                    <aside class="booking-summary" aria-live="polite">
+                        <p class="summary-label" data-i18n="summaryLabel">Итого</p>
+                        <h2 id="summary-service">Первичная консультация + пробное занятие</h2>
+                        <div class="summary-line">
+                            <span data-i18n="summaryDuration">Длительность</span>
+                            <strong id="summary-duration">60 мин</strong>
+                        </div>
+                        <div class="summary-line">
+                            <span data-i18n="summaryTime">Время</span>
+                            <strong id="summary-time">-</strong>
+                        </div>
+                        <div class="summary-total">
+                            <span data-i18n="summaryPrice">К оплате</span>
+                            <strong id="summary-price">49€</strong>
+                        </div>
+                        <button type="submit" form="checkout-form" class="btn btn-primary btn-block btn-lg" id="checkout-button">
+                            <span data-i18n="payButton">Перейти к оплате</span>
+                            <i class="fa-solid fa-lock"></i>
+                        </button>
+                        <p class="summary-note" data-i18n="summaryNote">Если нужного времени нет, напишите нам в WhatsApp.</p>
+                    </aside>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="booking.js?v=20260324g"></script>
+</body>
+
+</html>
