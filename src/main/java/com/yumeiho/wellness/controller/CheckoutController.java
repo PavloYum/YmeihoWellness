@@ -5,6 +5,7 @@ import com.stripe.exception.SignatureVerificationException;
 import com.stripe.model.Event;
 import com.stripe.model.StripeObject;
 import com.stripe.model.checkout.Session;
+import com.stripe.net.RequestOptions;
 import com.stripe.net.Webhook;
 import com.stripe.param.checkout.SessionCreateParams;
 import com.yumeiho.wellness.dto.AdminBlocksRequest;
@@ -19,6 +20,8 @@ import com.yumeiho.wellness.service.VoucherPurchaseService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.List;
@@ -341,11 +344,14 @@ public class CheckoutController {
                 .putMetadata("appointmentStart", appointmentStart.toString())
                 .putMetadata("clientName", request.getName())
                 .putMetadata("clientPhone", request.getPhone())
+                .putExtraParam("integration_identifier", integrationIdentifier("booking:" + reservation.bookingId()))
                 .build();
 
         Session session;
         try {
-            session = stripeClient.v1().checkout().sessions().create(params);
+            session = stripeClient.v1().checkout().sessions().create(params, RequestOptions.builder()
+                    .setIdempotencyKey("booking-checkout-" + reservation.bookingId())
+                    .build());
         } catch (Exception e) {
             bookingService.releaseReservation(reservation.bookingId());
             throw e;
@@ -387,9 +393,11 @@ public class CheckoutController {
                 .addLineItem(SessionCreateParams.LineItem.builder().setQuantity(1L).setPriceData(price).build())
                 .putMetadata("purchaseType", "voucher")
                 .putMetadata("voucherOrderId", request.getOrderId())
-                .putExtraParam("integration_identifier", "yumeiho_voucher_checkout")
+                .putExtraParam("integration_identifier", integrationIdentifier("voucher:" + request.getOrderId()))
                 .build();
-        Session session = stripeClient.v1().checkout().sessions().create(params);
+        Session session = stripeClient.v1().checkout().sessions().create(params, RequestOptions.builder()
+                .setIdempotencyKey("voucher-checkout-" + request.getOrderId())
+                .build());
         voucherPurchaseService.attachSession(request, session.getId());
         return ResponseEntity.ok(Map.of("status", "success", "checkoutUrl", session.getUrl()));
     }
@@ -466,6 +474,20 @@ public class CheckoutController {
     private boolean isBlockedDate(LocalDate date) {
         return isBetween(date, LocalDate.of(2026, 8, 23), LocalDate.of(2026, 9, 3)) ||
                 isBetween(date, LocalDate.of(2026, 10, 15), LocalDate.of(2026, 10, 28));
+    }
+
+    private String integrationIdentifier(String seed) {
+        try {
+            byte[] digest = MessageDigest.getInstance("SHA-256")
+                    .digest(seed.getBytes(StandardCharsets.UTF_8));
+            StringBuilder suffix = new StringBuilder(8);
+            for (int i = 0; i < 8; i++) {
+                suffix.append((char) ('a' + Byte.toUnsignedInt(digest[i]) % 26));
+            }
+            return "yumeiho_checkout_" + suffix;
+        } catch (Exception e) {
+            throw new IllegalStateException("Cannot create Stripe integration identifier", e);
+        }
     }
 
     private boolean isBetween(LocalDate date, LocalDate start, LocalDate end) {
